@@ -41,6 +41,8 @@ Dom.prototype.html = function(html = null) {
 	for(const elem of this.elem) {
 		elem.innerHTML = html;
 	}
+
+	return this;
 }
 
 /**
@@ -58,7 +60,7 @@ Dom.prototype.attr = function(name, value = null) {
 		const elem = this.first();
 
 		if (!elem) {
-			return null; // Don't bother
+			return ""; // Don't bother
 		}
 
 		return elem.getAttribute(name);
@@ -67,6 +69,8 @@ Dom.prototype.attr = function(name, value = null) {
 	for(const elem of this.elem) {
 		elem.setAttribute(name, value);
 	}
+
+	return this;
 }
 
 /**
@@ -80,9 +84,13 @@ Dom.prototype.addClass = function(className) {
 	let _class = this.attr("class");
 	_class = _class ? _class.split(" ") : [];
 
+	_class = _class.filter( c => c !== className);
+
 	_class.push(className);
 
 	this.attr("class", _class.join(" "));
+
+	return this;
 }
 
 /**
@@ -99,7 +107,9 @@ Dom.prototype.removeClass = function(className) {
 
 	_class = _class.split(" ").filter( name => name !== className );
 
-	this.attr("class", _class.split(" "));
+	this.attr("class", _class.join(" "));
+
+	return this;
 }
 
 /**

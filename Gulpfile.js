@@ -43,8 +43,13 @@ gulp.task("add-ui", function() {
     .pipe(gulp.dest("./dist/ui"));
 });
 
+gulp.task("copy-bundle", function() {
+    return gulp.src("./bundle.js")
+        .pipe(gulp.dest("./dist"));
+});
+
 gulp.task("bundle", function(done) {
-    gulp.series("cleanup", "transpile-src", "add-ui", "create-package")();
+    gulp.series("cleanup", "transpile-src", "add-ui", "copy-bundle", "create-package")();
 
     done();
 });
